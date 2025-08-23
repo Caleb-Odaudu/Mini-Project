@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-# DevOpsProject
 
-This repository showcases projects I have done for DevOps.
+# Mini-Project
+This repository contains mini-projects which I have completed that allowed me to gain the skills needed to do the Capstone 
 
 ## Contents
 
@@ -27,6 +26,5 @@ This repository showcases projects I have done for DevOps.
 
 ---
 =======
-# Mini-Project
-This repository contains mini-projects which I have completed that allowed me to gain the skills needed to do the Capstone Projects.
+Projects.
 >>>>>>> 64cce6906a7fe513dafa1d996fc0f40eb410f844

@@ -25,6 +25,4 @@ This repository contains mini-projects which I have completed that allowed me to
 - [4.4.VPC](4.4.VPC/README.md): Comprehensive guide to AWS VPC, including subnets, route tables, gateways, NAT, and VPC peering.
 
 ---
-=======
-Projects.
->>>>>>> 64cce6906a7fe513dafa1d996fc0f40eb410f844
+

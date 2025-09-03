@@ -47,7 +47,11 @@ This mini-project will help you understand and implement these practices, making
 
 1. **Initialize a GitHub Repository**
     - Create a new repository on GitHub.
+
     - Clone it to your local machine.
+    ```bash
+    git clone <repository-url>
+    ```
 
 2. **Install Node.js**
 
@@ -68,9 +72,27 @@ This mini-project will help you understand and implement these practices, making
     npm -v    # Displays the npm version
     ```
 
+    ![Installation of Node.js](img/2.a.node.js_Installation.png)
+
 3. **Create a Simple Node.js Application**
     - Initialize a Node.js project (`npm init`).
+    ~~~bash
+    npm init -y
+    ~~~
+
+    - Install Express.js as a dependency.
+    ~~~bash
+    npm install express
+    ~~~
+
     - Create a simple server using Express.js to serve a static web page.
+    ```bash
+    touch index.js
+    ```
+    ```bash
+    node index.js
+    ```
+
     - Add your code to the repository and push it to GitHub.
 
     ```js
@@ -90,7 +112,21 @@ This mini-project will help you understand and implement these practices, making
 
 4. **Write Your First GitHub Action Workflow**
     - Create a `.github/workflows` directory in your repository.
+    ```bash
+    mkdir -p .github/workflows
+    ```
+
+    ```bash
+    cd .github/workflows
+    touch node.js.yml
+    ```
+
+
     - Add a workflow file (e.g., `node.js.yml`):
+
+    ```bash
+    vim node.js.yml
+    ```
 
     ```yaml
     # Example: .github/workflows/node.js.yml
@@ -146,6 +182,12 @@ This workflow is a basic example for a Node.js project, demonstrating how to aut
 
 5. **Testing and Deployment**
     - Add automated tests for your application.
+    ```bash
+    npm install --save-dev jest
+    ```
+
+    - Update the workflow to include test execution.
+
     - Create a workflow for deployment (e.g., to a cloud service like Heroku or AWS).
 
 6. **Experiment and Learn**

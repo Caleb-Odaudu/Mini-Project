@@ -49,63 +49,82 @@ This mini-project will help you understand and implement these practices, making
     - Create a new repository on GitHub.
     - Clone it to your local machine.
 
-2. **Create a Simple Node.js Application**
+2. **Install Node.js**
+
+    **Step 1: Download Node.js**  
+    Visit the official Node.js website: [https://nodejs.org](https://nodejs.org)  
+    Choose the LTS (Long Term Support) version for stability.
+
+    **Step 2: Install Node.js**  
+    Download the installer for your operating system (Windows, macOS, or Linux).  
+    Run the installer and follow the setup instructions.  
+    The installer will also install npm automatically.
+
+    **Step 3: Verify Installation**  
+    Open a terminal or command prompt and run the following commands to check the installation:
+
+    ```bash
+    node -v   # Displays the Node.js version
+    npm -v    # Displays the npm version
+    ```
+
+3. **Create a Simple Node.js Application**
     - Initialize a Node.js project (`npm init`).
     - Create a simple server using Express.js to serve a static web page.
     - Add your code to the repository and push it to GitHub.
 
-```js
-// Example: index.js
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+    ```js
+    // Example: index.js
+    const express = require('express');
+    const app = express();
+    const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+    app.get('/', (req, res) => {
+      res.send('Hello World!');
+    });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
-```
+    app.listen(port, () => {
+      console.log(`App listening at http://localhost:${port}`);
+    });
+    ```
 
-3. **Writing Your First GitHub Action Workflow**
+4. **Write Your First GitHub Action Workflow**
     - Create a `.github/workflows` directory in your repository.
     - Add a workflow file (e.g., `node.js.yml`):
 
-```yaml
-# Example: .github/workflows/node.js.yml
+    ```yaml
+    # Example: .github/workflows/node.js.yml
 
-name: Node.js CI
+    name: Node.js CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    on:
+      push:
+        branches: [ main ]
+      pull_request:
+        branches: [ main ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+    jobs:
+      build:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
+        strategy:
+          matrix:
+            node-version: [14.x, 16.x]
 
-    steps:
-      - uses: actions/checkout@v2
+        steps:
+          - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+          - name: Use Node.js ${{ matrix.node-version }}
+            uses: actions/setup-node@v1
+            with:
+              node-version: ${{ matrix.node-version }}
 
-      - run: npm ci
+          - run: npm ci
 
-      - run: npm run build --if-present
+          - run: npm run build --if-present
 
-      - run: npm test
-```
+          - run: npm test
+    ```
 
 #### Explanation
 
@@ -125,11 +144,11 @@ This workflow is a basic example for a Node.js project, demonstrating how to aut
 
 ---
 
-4. **Testing and Deployment**
+5. **Testing and Deployment**
     - Add automated tests for your application.
     - Create a workflow for deployment (e.g., to a cloud service like Heroku or AWS).
 
-5. **Experiment and Learn**
+6. **Experiment and Learn**
     - Modify workflows to see how changes affect the CI/CD process.
     - Try adding different types of tests (unit tests, integration tests).
 

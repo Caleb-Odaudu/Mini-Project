@@ -89,11 +89,7 @@ This mini-project will help you understand and implement these practices, making
     ```bash
     touch index.js
     ```
-    ```bash
-    node index.js
-    ```
-
-    - Add your code to the repository and push it to GitHub.
+    - Open `index.js` in your text editor and add the following code:.
 
     ```js
     // Example: index.js
@@ -118,7 +114,6 @@ This mini-project will help you understand and implement these practices, making
 
     ```bash
     cd .github/workflows
-    touch node.js.yml
     ```
 
 
@@ -185,11 +180,110 @@ This workflow is a basic example for a Node.js project, demonstrating how to aut
     ```bash
     npm install --save-dev jest
     ```
+    ![npm install jest](img/3.a.npm_install.png)
+
+    • 	: This is the testing framework you're installing. It helps you write and run unit tests for your code.
+    • 	: This flag tells npm to add Jest to your  in .
+    That means:
+    • 	Jest is only needed during development (e.g. for testing).
+    • 	It won’t be installed when someone runs , which skips dev tools to keep production lean.
+
+    - Create a test case
+    Outside the .gitignore file, create a new file named app.js and add the following code:
+    ```app.js
+function getGreeting() {
+  return 'Hello World!';
+}
+module.exports = getGreeting;
+```
+    - Create a new file named app.test.js and add the following code:
+    ```app.test.js
+const getGreeting = require('./app');
+
+test('returns Hello World!', () => {
+  expect(getGreeting()).toBe('Hello World!');
+});
+```
+    - Update `package.json` to include a test script:
+    ```json
+    {
+      "scripts": {
+        "test": "jest"
+      }
+    }
+
+Now, you can run your tests using the command:
+    ```bash
+    npm test
+    ```
+    ![npm test](img/3.b.npm_test.png)
+
+This output means your Jest test suite ran successfully and passed without a hitch. You’ve now got:
+• 	 A working Express app
+• 	 Modular logic in app.js
+• 	 A test case in app.test.js
+• 	 Automated testing with Jest
+• 	 CI-ready test script in package.json
+
+
+![Verification](img/Verification.png)
 
     - Update the workflow to include test execution.
 
+    In `.github/workflows/node.js.yml`, notice there is a test step:
+
+    ```yaml
+          - run: npm test
+    ```
+This ensures your tests run automatically on every push or pull request.
+
     - Create a workflow for deployment (e.g., to a cloud service like Heroku or AWS).
 
+In this example we will use AWS for deployment.
+
+We will start by creating a new file named deploy.yml in the .github/workflows directory and add the following code:
+
+```yaml
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} << 'EOF'
+            cd /home/ec2-user/your-app-folder
+            git pull origin main
+            npm install
+            pm2 restart index.js || pm2 start index.js
+        EOF
+```
+
+    - **Explanation:**
+      - This workflow triggers on pushes to the `main` branch.
+      - It checks out the code, sets up SSH using a private key stored in GitHub Secrets, and deploys the application to an AWS EC2 instance.
+      - Make sure to replace `your-app-folder` with the actual folder name where your app resides on the EC2 instance.
+
+You’ll need to add these secrets to your GitHub repository:
+        - `EC2_SSH_KEY`: Your private SSH key for accessing the EC2 instance.
+        - `EC2_HOST`: The public DNS or IP address of your EC2 instance.
+
+You can add secrets via Settings → Secrets and variables → Actions → New repository secret.
 6. **Experiment and Learn**
     - Modify workflows to see how changes affect the CI/CD process.
     - Try adding different types of tests (unit tests, integration tests).

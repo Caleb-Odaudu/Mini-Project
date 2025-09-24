@@ -12,12 +12,12 @@ A Pod in Kubernetes is the smallest deployable unit that can be created and mana
 
 Interaction with Pods in Minikube involves using the powerful `kubectl` command-line tool. `kubectl` is the CLI for interacting with Kubernetes clusters. It allows users to deploy and manage applications, inspect and manage cluster resources, and execute various commands against Kubernetes clusters.
 
-### 1. **List Pods**
+### 1. List Pods
 
 ```bash
 kubectl get pods -A
 ```
-*Example Output:*
+**Example Output:**
 ```
 NAMESPACE     NAME           READY   STATUS    RESTARTS   AGE
 default       mypod          1/1     Running   0          2m
@@ -27,12 +27,12 @@ This command provides an overview of the current status of Pods within the Minik
 
 ---
 
-### 2. **Inspect a Pod**
+### 2. Inspect a Pod
 
 ```bash
 kubectl describe pod <pod-name>
 ```
-*Example Output:*
+**Example Output:**
 ```
 Name:         mypod
 Namespace:    default
@@ -49,12 +49,12 @@ This command gives detailed insight into a specific Pod, including events, conta
 
 ---
 
-### 3. **Delete a Pod**
+### 3. Delete a Pod
 
 ```bash
 kubectl delete pod <pod-name>
 ```
-*Example Output:*
+**Example Output:**
 ```
 pod "mypod" deleted
 ```
@@ -62,12 +62,12 @@ This command removes a Pod from the Minikube cluster.
 
 ---
 
-### 4. **Create a Pod Using kubectl**
+### 4. Create a Pod Using kubectl
 
 ```bash
 kubectl run mypod --image=nginx --restart=Never
 ```
-*Example Output:*
+**Example Output:**
 ```
 pod/mypod created
 ```
@@ -97,7 +97,7 @@ spec:
 ```bash
 kubectl apply -f mypod.yaml
 ```
-*Example Output:*
+**Example Output:**
 ```
 pod/mypod created
 ```
@@ -106,7 +106,7 @@ pod/mypod created
 ```bash
 kubectl get pods
 ```
-*Example Output:*
+**Example Output:**
 ```
 NAME    READY   STATUS    RESTARTS   AGE
 mypod   1/1     Running   0          10s
@@ -116,7 +116,7 @@ mypod   1/1     Running   0          10s
 ```bash
 kubectl delete -f mypod.yaml
 ```
-*Example Output:*
+**Example Output:**
 ```
 pod "mypod" deleted
 ```

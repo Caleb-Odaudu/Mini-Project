@@ -191,3 +191,4 @@ terraform destroy
 ## Conclusion
 
 In this mini project, you learned how to write a basic Terraform script to automate the creation of an EC2 instance on AWS and then create an AMI from that instance. You also learned how to execute the script using various Terraform commands such as `init`, `validate`, `plan`, `apply`, and `destroy`.
+

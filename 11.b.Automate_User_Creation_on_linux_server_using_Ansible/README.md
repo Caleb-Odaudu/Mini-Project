@@ -87,19 +87,20 @@ Managing user accounts is a common administrative task on Linux servers. Manuall
 2. Add the following content to the playbook:
 
    ```yaml
-   name: Automate User Creation
-   hosts: linux_servers
-   become: yes
-    tasks:
-      - name: Create a new user
-         user:
-              name: "{{ item.username }}"
-                state: present
-                shell: /bin/bash
-                create_home: yes
-            with_items:
-                - { "username: \"user1"\" }
-                - { "username: \"user2"\" }
+   - name: Automate user creation
+  hosts: linux_servers
+  become: yes
+  tasks:
+    - name: Create a new user
+      user:
+        name: "{"{ item.username "}}"
+        state: present
+        shell: /bin/bash
+        create_home: yes
+      with_items:
+        - {" username: \"user1\" "}
+        - {" username: \"user2\" "}
+
     ```
     This playbook creates two users, `user1` and `user2`, with home directories and bash shells.
 
@@ -108,29 +109,30 @@ Managing user accounts is a common administrative task on Linux servers. Manuall
 1. Update the playbook to include additional settings like groups and SSH keys:
 
    ```yaml
-   -    name: Automate User Creation
-   hosts: linux_servers
-   become: yes
-    tasks:
-      - name: Create a new user
-         user:
-              name: "{{ item.username }}"
-                state: present
-                shell: /bin/bash
-                create_home: yes
-                groups: "{{ item.groups }}"
+   - name: Automate user creation
+  hosts: linux_servers
+  become: yes
+  tasks:
+    - name: Create a new user with additional settings
+      user:
+        name: "{"{ item.username "}}"
+        state: present
+        shell: /bin/bash
+        create_home: yes
+        groups: "{"{ item.groups "}}"
+      with_items:
+        - {" username: \"user1\", groups: \"sudo\" "}
+        - {" username: \"user2\", groups: \"docker\" "}
 
-            with_items:
-                - { "username: \"user1\"", "groups: \"sudo\"" }
-                - { "username: \"user2\"", "groups: \"docker\"" }
-        - name: Set up SSH keys for users
-           authorized_key:
-                user: "{{ item.username }}"
-                state: present
-                key: "{{ lookup('file', item.ssh_key) }}"
-            with_items:
-                - { "username: \"user1\"", "ssh_key: \"/path/to/user1_key.pub\"" }
-                - { "username: \"user2\"", "ssh_key: \"/path/to/user2_key.pub\"" } 
+    - name: Add SSH key for the users
+      authorized_key:
+        user: "{"{ item.username "}}"
+        state: present
+        key: "{"{ lookup('file', item.ssh_key) "}}"
+      with_items:
+        - {" username: \"user1\", ssh_key: \"/path/to/user1.pub\" "}
+        - {" username: \"user2\", ssh_key: \"/path/to/user2.pub\" "}
+
     ```     
     Ensure you replace `/path/to/user1_key.pub` and `/path/to/user2_key.pub` with the actual paths to the public SSH keys.
 
@@ -144,8 +146,8 @@ Managing user accounts is a common administrative task on Linux servers. Manuall
 2. Verify the users were created on the target server by logging in or checking the `/etc/passwd` file:
 
    ```bash
-    cat /etc/passwd | grep user1
-    cat /etc/passwd | grep user2
+    cat /etc/passwd 
+    ls /home
     ```
 3. Test SSH access for the newly created users:
     ```bash
